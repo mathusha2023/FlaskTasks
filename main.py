@@ -19,5 +19,10 @@ def training(prof):
                                prof="Научные симуляторы", img=url_for("static", filename="img/spaceship_ss.png"))
 
 
+@app.route("/list_prof/<list_type>")
+def list_prof(list_type):
+    return render_template("list_prof.html", title="Список профессий", list_type=list_type)
+
+
 if __name__ == "__main__":
     app.run("127.0.0.1", 8080)
