@@ -46,5 +46,11 @@ def login():
                                form=form, img=url_for("static", filename="img/emblem.png"))
 
 
+@app.route("/distribution")
+def distribution():
+    sp = ["assd sadads", "sad sdad", "dsfsf df dsffsd", "afdfs dsf dfdf", "dsfksdf sdfksdf"]
+    return render_template("distribution.html", distribution=sp)
+
+
 if __name__ == "__main__":
     app.run("127.0.0.1", 8080)
