@@ -1,5 +1,5 @@
-h1 {
-    background-color: rgba(247, 247, 247, 1);
+body {
+    padding-left: 10px;
 }
 
 h2 {
@@ -10,6 +10,16 @@ h4 {
     color: rgba(200, 200, 200, 1);
 }
 
-.auto_answer {
+.marg_left {
     margin-left: 20px;
+}
+
+.container {
+    display: inline-flex;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.img-text {
+    margin-left: 8px;
 }

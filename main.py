@@ -1,6 +1,8 @@
 from flask import Flask, render_template, url_for
+from forms.double_protection import DoubleProtectForm
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "MySuPeRsEcReTkEy"
 
 
 @app.route("/<title>")
@@ -30,6 +32,18 @@ def auto_answer():
     form = {"surname": "Kovalev", "name": "Vlad", "education": "highest",
             "profession": "Jack of all trades", "sex": "male", "motivation": "for fun", "ready": True}
     return render_template("auto_answer.html", title="Анкета", form=form)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    form = DoubleProtectForm()
+    if form.validate_on_submit():
+        print("Submit!")
+        return render_template("double_form.html", title="Аварийный доступ",
+                               form=form, img=url_for("static", filename="img/emblem.png"))
+    else:
+        return render_template("double_form.html", title="Аварийный доступ",
+                               form=form, img=url_for("static", filename="img/emblem.png"))
 
 
 if __name__ == "__main__":
