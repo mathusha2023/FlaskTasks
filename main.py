@@ -24,5 +24,13 @@ def list_prof(list_type):
     return render_template("list_prof.html", title="Список профессий", list_type=list_type)
 
 
+@app.route("/answer")
+@app.route("/auto_answer")
+def auto_answer():
+    form = {"surname": "Kovalev", "name": "Vlad", "education": "highest",
+            "profession": "Jack of all trades", "sex": "male", "motivation": "for fun", "ready": True}
+    return render_template("auto_answer.html", title="Анкета", form=form)
+
+
 if __name__ == "__main__":
     app.run("127.0.0.1", 8080)

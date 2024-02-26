@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auto_answer">
+    <p>Фамилия: {{ form.surname }}</p>
+    <p>Имя: {{ form.name }}</p>
+    <p>Образование: {{ form.education }}</p>
+    <p>Профессия: {{ form.profession }}</p>
+    <p>Пол: {{ form.sex }}</p>
+    <p>Мотивация: {{ form.motivation }}</p>
+    <p>Готовы остаться на Марсе? {{ form.ready }}</p>
+</div>
+{% endblock %}
