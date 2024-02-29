@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for
 from forms.double_protection import DoubleProtectForm
+from data import db_session
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "MySuPeRsEcReTkEy"
@@ -53,4 +54,5 @@ def distribution():
 
 
 if __name__ == "__main__":
+    db_session.global_init("db/mars_explorer.db")
     app.run("127.0.0.1", 8080)
