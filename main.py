@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for
 from forms.double_protection import DoubleProtectForm
 from data import db_session
+from data.jobs import Jobs
 from add_data import add_team, add_job
 
 app = Flask(__name__)
@@ -52,6 +53,13 @@ def login():
 def distribution():
     sp = ["assd sadads", "sad sdad", "dsfsf df dsffsd", "afdfs dsf dfdf", "dsfksdf sdfksdf"]
     return render_template("distribution.html", distribution=sp)
+
+
+@app.route("/works/log")
+def works_log():
+    db_sess = db_session.create_session()
+    jobs = db_sess.query(Jobs).all()
+    return render_template("works_log.html", jobs=jobs)
 
 
 if __name__ == "__main__":
