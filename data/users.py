@@ -1,4 +1,6 @@
 import sqlalchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import date
 from .db_session import SqlAlchemyBase
 
 
@@ -14,4 +16,10 @@ class User(SqlAlchemyBase):
     address = sqlalchemy.Column(sqlalchemy.String)
     email = sqlalchemy.Column(sqlalchemy.String, unique=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String)
-    modified_date = sqlalchemy.Column(sqlalchemy.DateTime)
+    modified_date = sqlalchemy.Column(sqlalchemy.DateTime, default=date.today())
+
+    def set_password(self, password):
+        self.hashed_password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.hashed_password, password)

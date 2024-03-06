@@ -1,7 +1,9 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect
 from forms.double_protection import DoubleProtectForm
+from forms.register import RegistrationForm
 from data import db_session
 from data.jobs import Jobs
+from data.users import User
 from add_data import add_team, add_job
 
 app = Flask(__name__)
@@ -60,6 +62,34 @@ def works_log():
     db_sess = db_session.create_session()
     jobs = db_sess.query(Jobs).all()
     return render_template("works_log.html", jobs=jobs)
+
+
+@app.route("/register", methods=["GET", "POST"])
+def registration():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        if form.password.data != form.repeat_password.data:
+            return render_template("registration.html", form=form, message="Пароли не совпадают!")
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email.like(form.login.data)).first():
+            return render_template('registration.html',
+                                   form=form,
+                                   message="Такой пользователь уже есть!")
+
+        user = User()
+        user.set_password(form.password.data)
+        user.name = form.name.data
+        user.surname = form.surname.data
+        user.age = form.age.data
+        user.position = form.position.data
+        user.speciality = form.speciality.data
+        user.address = form.address.data
+        user.email = form.login.data
+        db_sess.add(user)
+        db_sess.commit()
+        return redirect("/list_prof/ul")
+    else:
+        return render_template("registration.html", form=form)
 
 
 if __name__ == "__main__":
