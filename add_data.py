@@ -1,5 +1,7 @@
 from data.users import User
+from data.jobs import Jobs
 from data.db_session import create_session
+from datetime import date
 
 
 def add_team():
@@ -18,4 +20,13 @@ def add_team():
               address="module_4", email="dudurott@mars.org")
 
     db_sess.add_all([captain, u1, u2, u3])
+    db_sess.commit()
+
+
+def add_job():
+    db_sess = create_session()
+
+    job = Jobs(team_leader=1, job="deployment of residential modules 1 and 2", work_size=15, collaborators="2, 3",
+               start_date=date.today(), is_finished=False)
+    db_sess.add(job)
     db_sess.commit()

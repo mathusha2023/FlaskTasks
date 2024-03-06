@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for
 from forms.double_protection import DoubleProtectForm
 from data import db_session
-from add_team import add_team
+from add_data import add_team, add_job
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "MySuPeRsEcReTkEy"
@@ -57,4 +57,5 @@ def distribution():
 if __name__ == "__main__":
     db_session.global_init("db/mars_explorer.db")
     add_team()
+    add_job()
     app.run("127.0.0.1", 8080)
